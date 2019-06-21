@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_marginTop="10dp">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/timeline"/>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <AutoCompleteTextView
+            android:layout_alignParentStart="true"
+            android:id="@+id/location_et_rv_layout"
+            android:padding="10dp"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_search_black_24dp"
+            android:drawablePadding="5dp"
+            android:background="@drawable/rectangle_gray_bg"
+            android:layout_alignParentLeft="true"
+            android:layout_toStartOf="@+id/cancel_location_btn_rv_layout"
+            android:layout_toLeftOf="@+id/cancel_location_btn_rv_layout"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:completionThreshold="2"/>
+
+        <ImageButton
+
+            android:layout_alignParentEnd="true"
+            android:id="@+id/cancel_location_btn_rv_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black_24dp"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+</LinearLayout>
