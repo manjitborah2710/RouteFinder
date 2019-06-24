@@ -39,12 +39,14 @@ public class AddLocationRecyclerViewAdapter extends RecyclerView.Adapter {
     Context context;
     List<String> data;
     List<AutoCompleteTextView> places;
+    int invalidLocsPos[];
 
 
-    public AddLocationRecyclerViewAdapter(Context context, List<String> data) {
+    public AddLocationRecyclerViewAdapter(Context context, List<String> data,int invalidLocsPos[]) {
         this.context = context;
         this.data = data;
         places=new ArrayList<>();
+        this.invalidLocsPos=invalidLocsPos;
     }
 
     @NonNull
@@ -59,6 +61,7 @@ public class AddLocationRecyclerViewAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final MyViewHolder myViewHolder=(MyViewHolder)holder;
         myViewHolder.searchText.setHint("Enter a location");
+        myViewHolder.searchText.setText(data.get(position));
         myViewHolder.searchText.setAdapter(new PlaceSearchResultsAdapter(context,new ArrayList<PlaceInfo>()));
         myViewHolder.cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,8 +116,14 @@ public class AddLocationRecyclerViewAdapter extends RecyclerView.Adapter {
 
             }
         });
-
-
+//        myViewHolder.searchText.setError(null);
+        if(invalidLocsPos!=null){
+            for(int i:invalidLocsPos){
+                if(i==position){
+                    myViewHolder.searchText.setError("Invalid location");
+                }
+            }
+        }
 
 
 

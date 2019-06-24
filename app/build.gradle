@@ -30,7 +30,9 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.google.android.libraries.places:places:1.1.0'
+    implementation 'com.google.maps:google-maps-services:0.2.5'
     implementation 'com.android.volley:volley:1.1.1'
+    implementation files('E:\\Softwares\\Java\\itextpdf-5.0.6.jar')
 
 
 }
