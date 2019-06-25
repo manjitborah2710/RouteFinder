@@ -82,10 +82,12 @@ public class SearchActivity extends AppCompatActivity implements LocationListene
         final ArrayList<String> list=new ArrayList<>();
         list.add("");
         if(prevLocs!=null){
-            list.clear();
-            sourceEt.setText(prevLocs[0]);
-            for(int i=1;i<prevLocs.length;i++){
-                list.add(prevLocs[i]);
+            if(prevLocs.length>0) {
+                list.clear();
+                sourceEt.setText(prevLocs[0]);
+                for (int i = 1; i < prevLocs.length; i++) {
+                    list.add(prevLocs[i]);
+                }
             }
         }
         if(invalidLocsPos!=null){
