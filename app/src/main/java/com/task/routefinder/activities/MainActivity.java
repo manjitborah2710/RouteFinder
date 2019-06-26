@@ -19,6 +19,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -229,9 +230,29 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             }
             case R.id.save_screenshot:{
-                saveScreenShot();
+                if(isWriteStoragePermissionGranted()) {
+                    saveScreenShot();
+                }
                 break;
             }
+        }
+    }
+
+    public  boolean isWriteStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            List<String> writePerm=new ArrayList<>();
+            if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            }
+            else {
+                writePerm.clear();
+                writePerm.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                ActivityCompat.requestPermissions(this, writePerm.toArray(new String[writePerm.size()]), 1002);
+                return false;
+            }
+        }
+        else {
+            return true;
         }
     }
 
@@ -434,8 +455,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public Map<String,LatLng> getLocationOnMap(List<String> locations) throws IOException
-    {
+    public Map<String,LatLng> getLocationOnMap(List<String> locations) throws IOException {
         mMap.clear();
         allAddresses=new LinkedHashMap<>();
         Map<String,LatLng> map=new LinkedHashMap<>();
@@ -801,6 +821,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         if(requestCode==1001 && grantResults.length!=0){
             if(grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED){
                 getCurrentLocation();
+            }
+        }
+        if(requestCode==1002 && grantResults.length!=0){
+            if(grantResults[0]==PackageManager.PERMISSION_GRANTED) {
+                saveScreenShot();
+            }
+            else{
+                Toast.makeText(getApplicationContext(),"Could not get the permissions required",Toast.LENGTH_SHORT).show();
             }
         }
     }
